@@ -20,6 +20,10 @@ class ListViewController: UIViewController {
     tableView.register(ListCell.self, forCellReuseIdentifier: ListCell.reusableIdentifier)
     return tableView
   }()
+  
+  override func viewWillAppear(_ animated: Bool) {
+    navigationController?.navigationBar.prefersLargeTitles = true
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -82,5 +86,15 @@ extension ListViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 500
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    if let selectedCell = tableView.cellForRow(at: indexPath) {
+      selectedCell.isSelected = false
+    }
+    let selectedArtwork = list[indexPath.row]
+    let detailViewController = DetailViewController()
+    detailViewController.artwork = selectedArtwork
+    self.navigationController?.pushViewController(detailViewController, animated: true)
   }
 }

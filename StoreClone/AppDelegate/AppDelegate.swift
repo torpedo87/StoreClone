@@ -21,9 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let networkManager = NetworkManager()
     let listViewController = ListViewController()
     listViewController.networkManager = networkManager
-    let navigationController = UINavigationController(rootViewController: listViewController)
-    navigationController.navigationBar.prefersLargeTitles = true
-    window?.rootViewController = navigationController
+    window?.rootViewController = UINavigationController(rootViewController: listViewController)
     return true
   }
 
