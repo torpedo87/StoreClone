@@ -9,19 +9,19 @@
 import Foundation
 
 struct Artwork {
-  private var iconImageUrl: String
-  public var name: String
-  private var artist: String
-  private var genres: [String]
-  private var price: String
-  private var rating: Double?
-  private var screenshotUrls: [String]
-  private var version: String
-  private var releaseNotes: String?
-  private var trackViewUrl: String
-  private var description: String
-  private var size: String
-  private var age: String
+  private(set) var iconImageUrl: String
+  private(set) var name: String
+  private(set) var artist: String
+  private(set) var genres: [String]
+  private(set) var price: String
+  private(set) var rating: Double?
+  private(set) var screenshotUrls: [String]
+  private(set) var version: String
+  private(set) var releaseNotes: String?
+  private(set) var trackViewUrl: String
+  private(set) var description: String
+  private(set) var size: String
+  private(set) var age: String
 }
 
 

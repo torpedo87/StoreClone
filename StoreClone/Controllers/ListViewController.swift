@@ -9,6 +9,7 @@
 import UIKit
 
 class ListViewController: UIViewController {
+  var networkManager: NetworkManager!
   
   private var list: [Artwork] = []
   private lazy var tableView: UITableView = {
@@ -16,10 +17,9 @@ class ListViewController: UIViewController {
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.dataSource = self
     tableView.delegate = self
+    tableView.register(ListCell.self, forCellReuseIdentifier: ListCell.reusableIdentifier)
     return tableView
   }()
-  
-  private let networkManager = NetworkManager()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -46,6 +46,7 @@ class ListViewController: UIViewController {
   }
   
   func setupUI() {
+    title = "핸드메이드"
     view.backgroundColor = .white
     view.addSubview(tableView)
     
@@ -60,10 +61,17 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return list.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    if let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.reusableIdentifier,
+                                                for: indexPath) as? ListCell {
+      let artwork = self.list[indexPath.row]
+      cell.configure(artwork: artwork)
+      return cell
+    }
+    
     return UITableViewCell()
   }
   
@@ -72,4 +80,7 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
   
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 500
+  }
 }
