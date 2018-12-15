@@ -25,6 +25,7 @@ class TopCell: UITableViewCell {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.text = artwork.name
+    label.font = UIFont.systemFont(ofSize: 20)
     return label
   }()
   
@@ -32,12 +33,14 @@ class TopCell: UITableViewCell {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.text = artwork.artist
+    label.font = UIFont.systemFont(ofSize: 12)
     return label
   }()
   private lazy var priceLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.text = artwork.price
+    label.font = UIFont.systemFont(ofSize: 20)
     return label
   }()
   
@@ -52,10 +55,10 @@ class TopCell: UITableViewCell {
     let view = UICollectionView(frame: CGRect.zero,
                                 collectionViewLayout: customLayout)
     view.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-    view.backgroundColor = .green
     view.dataSource = self
     view.register(CarouselCell.self, forCellWithReuseIdentifier: CarouselCell.reuseIdentifier)
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .white
     return view
   }()
   private lazy var stackView: UIStackView = {
@@ -111,7 +114,6 @@ class TopCell: UITableViewCell {
   
   func configure(artwork: Artwork) {
     selectionStyle = .none
-    backgroundColor = .yellow
     self.artwork = artwork
     addSubview(collectionView)
     addSubview(stackView)

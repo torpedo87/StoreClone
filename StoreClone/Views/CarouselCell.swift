@@ -30,9 +30,7 @@ class CarouselCell: UICollectionViewCell {
   }
   
   func configure(screenshotUrlString: String) {
-    backgroundColor = .white
     addSubview(imgView)
-    
     imgView.loadImageWithUrlString(urlString: screenshotUrlString)
   }
   

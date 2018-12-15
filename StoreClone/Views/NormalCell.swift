@@ -19,6 +19,7 @@ class NormalCell: UITableViewCell {
   internal lazy var detailLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
+    label.textAlignment = .right
     return label
   }()
   

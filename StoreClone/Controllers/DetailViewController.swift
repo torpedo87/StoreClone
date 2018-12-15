@@ -18,8 +18,9 @@ class DetailViewController: UIViewController {
     tableView.delegate = self
     tableView.register(TopCell.self, forCellReuseIdentifier: TopCell.reuseIdentifier)
     tableView.register(DynamicCell.self, forCellReuseIdentifier: DynamicCell.reusableIdentifier)
-    tableView.register(SelfSizingCell.self, forCellReuseIdentifier: SelfSizingCell.reuseIdentifier)
+    tableView.register(DescriptionCell.self, forCellReuseIdentifier: DescriptionCell.reuseIdentifier)
     tableView.register(NormalCell.self, forCellReuseIdentifier: NormalCell.reuseIdentifier)
+    tableView.register(CategoryCell.self, forCellReuseIdentifier: CategoryCell.reuseIdentifier)
     tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 500
     return tableView
@@ -43,7 +44,7 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 10
+    return 6
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,7 +59,7 @@ extension DetailViewController: UITableViewDataSource {
     case 1:
       if let cell = tableView.dequeueReusableCell(withIdentifier: NormalCell.reuseIdentifier,
                                                   for: indexPath) as? NormalCell {
-        cell.configure(title: "크기", detail: artwork.size)
+        cell.configure(title: "크기", detail: artwork.readableSize)
         return cell
       }
     case 2:
@@ -75,9 +76,15 @@ extension DetailViewController: UITableViewDataSource {
         return cell
       }
     case 4:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: SelfSizingCell.reuseIdentifier,
-                                                  for: indexPath) as? SelfSizingCell {
+      if let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionCell.reuseIdentifier,
+                                                  for: indexPath) as? DescriptionCell {
         cell.configure(artwork: artwork)
+        return cell
+      }
+    case 5:
+      if let cell = tableView.dequeueReusableCell(withIdentifier: CategoryCell.reuseIdentifier,
+                                                  for: indexPath) as? CategoryCell {
+        cell.configure(genre: artwork.genres)
         return cell
       }
     default:
@@ -93,6 +100,10 @@ extension DetailViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     if indexPath.row == 0 {
       return UIScreen.main.bounds.height * 2 / 3
+    } else if indexPath.row == 4 {
+      return UIScreen.main.bounds.height / 3
+    } else if indexPath.row == 5 {
+      return UIScreen.main.bounds.height / 7
     }
     return UITableView.automaticDimension
   }
@@ -111,7 +122,6 @@ extension DetailViewController: TopCellDelegate {
     if let urlToShare = URL(string: artwork.trackViewUrl) {
       let activityViewController = UIActivityViewController(activityItems: [urlToShare],
                                                             applicationActivities: nil)
-      //activityViewController.popoverPresentationController?.sourceView = self.view
       self.present(activityViewController, animated: true, completion: nil)
     }
   }

@@ -1,16 +1,16 @@
 //
-//  SelfSizingCell.swift
+//  DescriptionCell.swift
 //  StoreClone
 //
-//  Created by junwoo on 14/12/2018.
+//  Created by junwoo on 15/12/2018.
 //  Copyright © 2018 samchon. All rights reserved.
 //
 
 import UIKit
 
-class SelfSizingCell: UITableViewCell {
+class DescriptionCell: UITableViewCell {
+  static let reuseIdentifier = "DescriptionCell"
   
-  static let reuseIdentifier = "SelfSizingCell"
   private lazy var descriptionLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +29,7 @@ class SelfSizingCell: UITableViewCell {
   }
   
   func configure(artwork: Artwork) {
+    
     addSubview(descriptionLabel)
     descriptionLabel.text = artwork.description
   }

@@ -22,6 +22,11 @@ struct Artwork {
   private(set) var description: String
   private(set) var size: String
   private(set) var age: String
+  var readableSize: String {
+    let byte = Int64(size)
+    let convertedSize = ByteCountFormatter.string(fromByteCount: byte!, countStyle: .binary)
+    return convertedSize
+  }
 }
 
 
@@ -35,7 +40,7 @@ extension Artwork {
       let artist = result["sellerName"] as? String,
       let genres = result["genres"] as? [String],
       let price = result["formattedPrice"] as? String,
-      let rating = result["averageUserRatingForCurrentVersion"] as? Double?,
+      let rating = result["averageUserRating"] as? Double?,
       let screenshotUrls = result["screenshotUrls"] as? [String],
       let version = result["version"] as? String,
       let releaseNotes = result["releaseNotes"] as? String?,

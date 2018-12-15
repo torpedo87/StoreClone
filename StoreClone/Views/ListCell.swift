@@ -11,6 +11,7 @@ import UIKit
 class ListCell: UITableViewCell {
   
   static let reusableIdentifier: String = "ListCell"
+  private let maxRating: Double = 5.0
   private var artwork: Artwork!
   private let containerLayoutGuide = UILayoutGuide()
   private lazy var imgView: UIImageView = {
@@ -31,23 +32,24 @@ class ListCell: UITableViewCell {
     bottomView.backgroundColor = .white
     return bottomView
   }()
-  
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
-  private lazy var ratingView: RatingView = {
-    let ratingView = RatingView(averageRating: artwork.rating ?? 0)
-    ratingView.translatesAutoresizingMaskIntoConstraints = false
-    return ratingView
+  private lazy var ratingView: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
   }()
+  private var starImageViews = [UIImageView]()
+
   private lazy var sellerLabel: UILabel = {
     let label = UILabel()
+    label.textColor = .darkGray
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
-  
   private lazy var categoryLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +59,7 @@ class ListCell: UITableViewCell {
   private lazy var priceLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
+    label.textColor = .darkGray
     return label
   }()
   
@@ -96,15 +99,14 @@ class ListCell: UITableViewCell {
     categoryLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
     categoryLabel.heightAnchor.constraint(equalTo: priceLabel.heightAnchor).isActive = true
     
-    ratingView.topAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
-    ratingView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor).isActive = true
-    ratingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    ratingView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor).isActive = true
-    
     priceLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor).isActive = true
     priceLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor).isActive = true
     priceLabel.widthAnchor.constraint(equalTo: categoryLabel.widthAnchor).isActive = true
     priceLabel.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor).isActive = true
+    
+    if let averageRating = artwork.rating {
+      addRatingView(averageRating: averageRating)
+    }
   }
   
   func configure(artwork: Artwork) {
@@ -119,7 +121,6 @@ class ListCell: UITableViewCell {
     topView.addSubview(sellerLabel)
     bottomView.addSubview(categoryLabel)
     bottomView.addSubview(priceLabel)
-    bottomView.addSubview(ratingView)
     
     imgView.loadImageWithUrlString(urlString: artwork.iconImageUrl)
     titleLabel.text = artwork.name
@@ -128,12 +129,51 @@ class ListCell: UITableViewCell {
     priceLabel.text = artwork.price
   }
   
+  func addRatingView(averageRating: Double) {
+    bottomView.addSubview(ratingView)
+    ratingView.topAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+    ratingView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor).isActive = true
+    ratingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    ratingView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor).isActive = true
+    let starWidth = ratingView.bounds.width / CGFloat(maxRating)
+    let fullStarCount = Int(averageRating)
+    let hasHalfStar: Bool = averageRating - Double(fullStarCount) > 0
+    
+    var IsHalfStarAdded: Bool = false
+    for i in 1...Int(maxRating) {
+      var starImage: UIImage
+      if i <= fullStarCount {
+        starImage = UIImage(named: "full")!
+      } else if hasHalfStar && !IsHalfStarAdded {
+        starImage = UIImage(named: "half")!
+        IsHalfStarAdded = true
+      } else {
+        starImage = UIImage(named: "empty")!
+      }
+      
+      let starImageView = UIImageView(image: starImage)
+      starImageView.translatesAutoresizingMaskIntoConstraints = false
+      starImageView.contentMode = .scaleAspectFit
+      ratingView.addSubview(starImageView)
+      
+      starImageView.topAnchor.constraint(equalTo: ratingView.topAnchor).isActive = true
+      starImageView.bottomAnchor.constraint(equalTo: ratingView.bottomAnchor).isActive = true
+      starImageView.widthAnchor.constraint(equalToConstant: starWidth).isActive = true
+      starImageView.leadingAnchor.constraint(equalTo: ratingView.leadingAnchor,
+                                             constant: starWidth * CGFloat(i-1)).isActive = true
+      starImageViews.append(starImageView)
+    }
+  }
+  
   override func prepareForReuse() {
     super.prepareForReuse()
+    
     imgView.image = nil
     titleLabel.text = nil
     sellerLabel.text = nil
     categoryLabel.text = nil
     priceLabel.text = nil
+    starImageViews = []
+    ratingView.subviews.forEach { $0.removeFromSuperview() }
   }
 }
