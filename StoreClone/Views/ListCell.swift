@@ -98,6 +98,7 @@ class ListCell: UITableViewCell {
   }
   
   func configure(artwork: Artwork) {
+    selectionStyle = .none
     backgroundColor = .lightGray
     addLayoutGuide(containerLayoutGuide)
     addSubview(imgView)

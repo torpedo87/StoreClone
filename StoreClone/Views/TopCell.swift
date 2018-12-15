@@ -104,6 +104,7 @@ class TopCell: UITableViewCell {
   }
   
   func configure(artwork: Artwork) {
+    selectionStyle = .none
     backgroundColor = .yellow
     self.artwork = artwork
     addSubview(collectionView)

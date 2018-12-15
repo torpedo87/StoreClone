@@ -89,9 +89,6 @@ extension ListViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    if let selectedCell = tableView.cellForRow(at: indexPath) {
-      selectedCell.isSelected = false
-    }
     let selectedArtwork = list[indexPath.row]
     let detailViewController = DetailViewController()
     detailViewController.artwork = selectedArtwork

@@ -17,7 +17,11 @@ class DetailViewController: UIViewController {
     tableView.dataSource = self
     tableView.delegate = self
     tableView.register(TopCell.self, forCellReuseIdentifier: TopCell.reuseIdentifier)
-    tableView.rowHeight = 
+    tableView.register(DynamicCell.self, forCellReuseIdentifier: DynamicCell.reusableIdentifier)
+    tableView.register(SelfSizingCell.self, forCellReuseIdentifier: SelfSizingCell.reuseIdentifier)
+    tableView.register(NormalCell.self, forCellReuseIdentifier: NormalCell.reuseIdentifier)
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = 500
     return tableView
   }()
   
@@ -39,18 +43,44 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return 10
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch indexPath.row {
     case 0:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: TopCell.reuseIdentifier) as? TopCell {
+      if let cell = tableView.dequeueReusableCell(withIdentifier: TopCell.reuseIdentifier,
+                                                  for: indexPath) as? TopCell {
         cell.configure(artwork: artwork)
         return cell
       }
-    case 1...3:
-      
+    case 1:
+      if let cell = tableView.dequeueReusableCell(withIdentifier: NormalCell.reuseIdentifier,
+                                                  for: indexPath) as? NormalCell {
+        cell.configure(title: "크기", detail: artwork.size)
+        return cell
+      }
+    case 2:
+      if let cell = tableView.dequeueReusableCell(withIdentifier: NormalCell.reuseIdentifier,
+                                                  for: indexPath) as? NormalCell {
+        cell.configure(title: "연령", detail: artwork.age)
+        return cell
+      }
+    case 3:
+      if let cell = tableView.dequeueReusableCell(withIdentifier: DynamicCell.reusableIdentifier,
+                                                  for: indexPath) as? DynamicCell {
+        cell.configure(title: "새로운 기능", detail: artwork.version, moreInfo: artwork.releaseNotes)
+        cell.delegate = self
+        return cell
+      }
+    case 4:
+      if let cell = tableView.dequeueReusableCell(withIdentifier: SelfSizingCell.reuseIdentifier,
+                                                  for: indexPath) as? SelfSizingCell {
+        cell.configure(artwork: artwork)
+        return cell
+      }
+    default:
+      return UITableViewCell()
     }
     return UITableViewCell()
   }
@@ -63,6 +93,14 @@ extension DetailViewController: UITableViewDelegate {
     if indexPath.row == 0 {
       return UIScreen.main.bounds.height * 2 / 3
     }
-    return 50
+    return UITableView.automaticDimension
+  }
+}
+
+extension DetailViewController: DynamicCellDelegate {
+  func moreInfoButtonTapped() {
+    tableView.beginUpdates()
+    tableView.layoutIfNeeded()
+    tableView.endUpdates()
   }
 }
