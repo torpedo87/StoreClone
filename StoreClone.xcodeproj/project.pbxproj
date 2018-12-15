@@ -14,6 +14,7 @@
 		486E317121C3BB130063B75C /* SelfSizingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E317021C3BB130063B75C /* SelfSizingCell.swift */; };
 		486E317321C3BF670063B75C /* DynamicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E317221C3BF670063B75C /* DynamicCell.swift */; };
 		486E317521C4C5660063B75C /* NormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E317421C4C5660063B75C /* NormalCell.swift */; };
+		486E317721C4DC440063B75C /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E317621C4DC440063B75C /* RatingView.swift */; };
 		487D443A21C13F45004696A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D443921C13F45004696A0 /* AppDelegate.swift */; };
 		487D443C21C13F45004696A0 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D443B21C13F45004696A0 /* ListViewController.swift */; };
 		487D443F21C13F45004696A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 487D443D21C13F45004696A0 /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		486E317021C3BB130063B75C /* SelfSizingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingCell.swift; sourceTree = "<group>"; };
 		486E317221C3BF670063B75C /* DynamicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCell.swift; sourceTree = "<group>"; };
 		486E317421C4C5660063B75C /* NormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalCell.swift; sourceTree = "<group>"; };
+		486E317621C4DC440063B75C /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		487D443621C13F45004696A0 /* StoreClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		487D443921C13F45004696A0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		487D443B21C13F45004696A0 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				486E317021C3BB130063B75C /* SelfSizingCell.swift */,
 				486E317221C3BF670063B75C /* DynamicCell.swift */,
 				486E317421C4C5660063B75C /* NormalCell.swift */,
+				486E317621C4DC440063B75C /* RatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				487D445F21C14A82004696A0 /* Artwork.swift in Sources */,
 				486E316F21C39EB30063B75C /* CarouselCell.swift in Sources */,
 				486E316D21C398FC0063B75C /* TopCell.swift in Sources */,
+				486E317721C4DC440063B75C /* RatingView.swift in Sources */,
 				486E317121C3BB130063B75C /* SelfSizingCell.swift in Sources */,
 				487D447B21C28639004696A0 /* ListCell.swift in Sources */,
 				486E316921C377AB0063B75C /* UIImageView.swift in Sources */,

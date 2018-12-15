@@ -52,6 +52,7 @@ extension DetailViewController: UITableViewDataSource {
       if let cell = tableView.dequeueReusableCell(withIdentifier: TopCell.reuseIdentifier,
                                                   for: indexPath) as? TopCell {
         cell.configure(artwork: artwork)
+        cell.delegate = self
         return cell
       }
     case 1:
@@ -102,5 +103,16 @@ extension DetailViewController: DynamicCellDelegate {
     tableView.beginUpdates()
     tableView.layoutIfNeeded()
     tableView.endUpdates()
+  }
+}
+
+extension DetailViewController: TopCellDelegate {
+  func shareButtonTapped() {
+    if let urlToShare = URL(string: artwork.trackViewUrl) {
+      let activityViewController = UIActivityViewController(activityItems: [urlToShare],
+                                                            applicationActivities: nil)
+      //activityViewController.popoverPresentationController?.sourceView = self.view
+      self.present(activityViewController, animated: true, completion: nil)
+    }
   }
 }

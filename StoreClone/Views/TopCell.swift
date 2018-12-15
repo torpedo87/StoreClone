@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol TopCellDelegate: class {
+  func shareButtonTapped()
+}
+
 class TopCell: UITableViewCell {
   
+  weak var delegate: TopCellDelegate?
   static let reuseIdentifier = "TopCell"
   private var artwork: Artwork! {
     didSet {
@@ -22,6 +27,7 @@ class TopCell: UITableViewCell {
     label.text = artwork.name
     return label
   }()
+  
   private lazy var sellerLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +131,7 @@ class TopCell: UITableViewCell {
   }
   
   @objc func shareButtonTapped(_ recognizer: UIButton) {
-    
+    delegate?.shareButtonTapped()
   }
 }
 

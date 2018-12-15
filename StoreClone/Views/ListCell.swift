@@ -11,6 +11,7 @@ import UIKit
 class ListCell: UITableViewCell {
   
   static let reusableIdentifier: String = "ListCell"
+  private var artwork: Artwork!
   private let containerLayoutGuide = UILayoutGuide()
   private lazy var imgView: UIImageView = {
     let imgView = UIImageView()
@@ -36,7 +37,11 @@ class ListCell: UITableViewCell {
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
-  
+  private lazy var ratingView: RatingView = {
+    let ratingView = RatingView(averageRating: artwork.rating ?? 0)
+    ratingView.translatesAutoresizingMaskIntoConstraints = false
+    return ratingView
+  }()
   private lazy var sellerLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -91,6 +96,11 @@ class ListCell: UITableViewCell {
     categoryLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
     categoryLabel.heightAnchor.constraint(equalTo: priceLabel.heightAnchor).isActive = true
     
+    ratingView.topAnchor.constraint(equalTo: bottomView.topAnchor).isActive = true
+    ratingView.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor).isActive = true
+    ratingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    ratingView.heightAnchor.constraint(equalTo: categoryLabel.heightAnchor).isActive = true
+    
     priceLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor).isActive = true
     priceLabel.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor).isActive = true
     priceLabel.widthAnchor.constraint(equalTo: categoryLabel.widthAnchor).isActive = true
@@ -98,6 +108,7 @@ class ListCell: UITableViewCell {
   }
   
   func configure(artwork: Artwork) {
+    self.artwork = artwork
     selectionStyle = .none
     backgroundColor = .lightGray
     addLayoutGuide(containerLayoutGuide)
@@ -108,6 +119,7 @@ class ListCell: UITableViewCell {
     topView.addSubview(sellerLabel)
     bottomView.addSubview(categoryLabel)
     bottomView.addSubview(priceLabel)
+    bottomView.addSubview(ratingView)
     
     imgView.loadImageWithUrlString(urlString: artwork.iconImageUrl)
     titleLabel.text = artwork.name
