@@ -29,8 +29,6 @@ enum LoadingError: Error {
   case server
 }
 
-typealias Handler = (Result<[Artwork], LoadingError>) -> Void
-
 class NetworkManager {
   
   private let session: URLSession
@@ -39,10 +37,9 @@ class NetworkManager {
     self.session = session
   }
   
-  func loadData(keyword: String,
-                comopletionHandler: @escaping Handler) {
+  func loadData(url: URL,
+                comopletionHandler: @escaping (Result<Data, LoadingError>) -> Void) {
     
-    let url = convertKeywordToUrl(keyword: keyword)
     let task = session.dataTask(with: url) { (data, response, error) in
       
       if let _ = error {
@@ -50,28 +47,31 @@ class NetworkManager {
         return
       }
       
-      if let httpResponse = response as? HTTPURLResponse,
-        let statusCode = httpResponse.statusCode as? Int {
-        if !(200...299).contains(statusCode) {
+      if let httpResponse = response as? HTTPURLResponse {
+        if !(200...299).contains(httpResponse.statusCode) {
           comopletionHandler(.failure(.server))
           return
         }
       }
-      
-      if let data = data,
-        let json = try? JSONSerialization.jsonObject(with: data, options: []),
-        let dict = json as? [String: Any],
-        let results = dict["results"] as? [[String:Any]] {
-        var list: [Artwork] = []
-        for result in results {
-          let artwork = Artwork(result: result)
-          list.append(artwork!)
-        }
-        comopletionHandler(.success(list))
+      if let data = data {
+        comopletionHandler(.success(data))
       }
-      
     }
     task.resume()
+  }
+  
+  func convertDataToArtworks(data: Data) -> [Artwork] {
+    if let json = try? JSONSerialization.jsonObject(with: data, options: []),
+      let dict = json as? [String: Any],
+      let results = dict["results"] as? [[String:Any]] {
+      var list: [Artwork] = []
+      for result in results {
+        let artwork = Artwork(result: result)
+        list.append(artwork!)
+      }
+      return list
+    }
+    return []
   }
   
   func convertKeywordToUrl(keyword: String) -> URL {

@@ -10,21 +10,33 @@ import UIKit
 
 class DetailViewController: UIViewController {
   
-  var artwork: Artwork!
+  private var artwork: Artwork!
   private lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.dataSource = self
     tableView.delegate = self
-    tableView.register(TopCell.self, forCellReuseIdentifier: TopCell.reuseIdentifier)
-    tableView.register(DynamicCell.self, forCellReuseIdentifier: DynamicCell.reusableIdentifier)
-    tableView.register(DescriptionCell.self, forCellReuseIdentifier: DescriptionCell.reuseIdentifier)
-    tableView.register(NormalCell.self, forCellReuseIdentifier: NormalCell.reuseIdentifier)
-    tableView.register(CategoryCell.self, forCellReuseIdentifier: CategoryCell.reuseIdentifier)
-    tableView.rowHeight = UITableView.automaticDimension
+    tableView.register(TopCell.self,
+                       forCellReuseIdentifier: TopCell.reuseIdentifier)
+    tableView.register(DynamicCell.self,
+                       forCellReuseIdentifier: DynamicCell.reuseableIdentifier)
+    tableView.register(StandardCell.self,
+                       forCellReuseIdentifier: StandardCell.reuseIdentifier)
+    tableView.register(CategoryCell.self,
+                       forCellReuseIdentifier: CategoryCell.reuseIdentifier)
+    //tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 500
     return tableView
   }()
+  
+  init(artwork: Artwork) {
+    self.artwork = artwork
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -35,19 +47,25 @@ class DetailViewController: UIViewController {
     navigationController?.navigationBar.prefersLargeTitles = false
     view.backgroundColor = .white
     view.addSubview(tableView)
-    tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    tableView.topAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.topAnchor).isActive = true
+    tableView.leadingAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+    tableView.trailingAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+    tableView.bottomAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.bottomAnchor).isActive = true
   }
 }
 
 extension DetailViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView,
+                 numberOfRowsInSection section: Int) -> Int {
     return 6
   }
   
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView,
+                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch indexPath.row {
     case 0:
       if let cell = tableView.dequeueReusableCell(withIdentifier: TopCell.reuseIdentifier,
@@ -57,28 +75,28 @@ extension DetailViewController: UITableViewDataSource {
         return cell
       }
     case 1:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: NormalCell.reuseIdentifier,
-                                                  for: indexPath) as? NormalCell {
+      if let cell = tableView.dequeueReusableCell(withIdentifier: StandardCell.reuseIdentifier,
+                                                  for: indexPath) as? StandardCell {
         cell.configure(title: "크기", detail: artwork.readableSize)
         return cell
       }
     case 2:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: NormalCell.reuseIdentifier,
-                                                  for: indexPath) as? NormalCell {
+      if let cell = tableView.dequeueReusableCell(withIdentifier: StandardCell.reuseIdentifier,
+                                                  for: indexPath) as? StandardCell {
         cell.configure(title: "연령", detail: artwork.age)
         return cell
       }
     case 3:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: DynamicCell.reusableIdentifier,
+      if let cell = tableView.dequeueReusableCell(withIdentifier: DynamicCell.reuseableIdentifier,
                                                   for: indexPath) as? DynamicCell {
-        cell.configure(title: "새로운 기능", detail: artwork.version, moreInfo: artwork.releaseNotes)
         cell.delegate = self
+        cell.configure(title: "새로운 기능", detail: artwork.version, artWork: artwork)
         return cell
       }
     case 4:
-      if let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionCell.reuseIdentifier,
-                                                  for: indexPath) as? DescriptionCell {
-        cell.configure(artwork: artwork)
+      if let cell = tableView.dequeueReusableCell(withIdentifier: StandardCell.reuseIdentifier,
+                                                  for: indexPath) as? StandardCell {
+        cell.configure(artWork: artwork)
         return cell
       }
     case 5:
@@ -92,12 +110,11 @@ extension DetailViewController: UITableViewDataSource {
     }
     return UITableViewCell()
   }
-  
-  
 }
 
 extension DetailViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView,
+                 heightForRowAt indexPath: IndexPath) -> CGFloat {
     if indexPath.row == 0 {
       return UIScreen.main.bounds.height * 2 / 3
     } else if indexPath.row == 4 {

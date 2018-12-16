@@ -11,21 +11,38 @@ import XCTest
 
 class NetworkManagerTests: XCTestCase {
   
+  var session: URLSessionMock!
+  var manager: NetworkManager!
+  
   override func setUp() {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    session = URLSessionMock()
+    manager = NetworkManager(session: session)
   }
   
   override func tearDown() {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
   
-  func testSuccessfulResponse() {
+  func test_loadData() {
     
-    let session = URLSessionMock()
+    let data = Data(bytes: [0, 1, 0, 1])
+    session.data = data
+    var result: Result<Data, LoadingError>?
+    let url = URL(fileURLWithPath: "url")
+    manager.loadData(url: url) { result = $0 }
+    var resultData: Data?
+    do {
+      resultData = try result?.resolve()
+    } catch {
+      XCTFail("result resolve fail")
+    }
     
+    XCTAssertEqual(resultData, data)
+  }
+  
+  func test_convertDataToArtworks() {
     let testBundle = Bundle(for: NetworkManagerTests.self)
     var data = Data()
-    
     if let fileUrl = testBundle.url(forResource: "raw", withExtension: "txt") {
       do {
         data = try Data(contentsOf: fileUrl)
@@ -36,21 +53,9 @@ class NetworkManagerTests: XCTestCase {
       XCTFail("example.txt not found!")
     }
     
-    session.data = data
-    let manager = NetworkManager(session: session)
-    
-    var result: Result<[Artwork], LoadingError>?
-    manager.loadData(keyword: "핸드메이드") { result = $0 }
-    
-    var artworks = [Artwork]()
-    do {
-      artworks = try (result?.resolve())!
-    } catch {
-      artworks = []
-    }
-    
+    let artworks = manager.convertDataToArtworks(data: data)
     XCTAssertEqual(artworks.count, 43)
-    XCTAssertEqual(artworks.contains { $0.name == "아이디어스(idus)" }, true)
+    XCTAssertTrue(artworks.contains { $0.name == "아이디어스(idus)" })
   }
   
 }

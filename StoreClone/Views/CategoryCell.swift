@@ -34,20 +34,31 @@ class CategoryCell: UITableViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
     
-    containerGuide.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-    containerGuide.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-    containerGuide.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-    containerGuide.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+    containerGuide.topAnchor.constraint(equalTo: topAnchor,
+                                        constant: 8).isActive = true
+    containerGuide.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                            constant: 8).isActive = true
+    containerGuide.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                             constant: -8).isActive = true
+    containerGuide.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                           constant: -8).isActive = true
     
-    titleLabel.topAnchor.constraint(equalTo: containerGuide.topAnchor).isActive = true
-    titleLabel.leadingAnchor.constraint(equalTo: containerGuide.leadingAnchor).isActive = true
-    titleLabel.trailingAnchor.constraint(equalTo: containerGuide.trailingAnchor).isActive = true
+    titleLabel.topAnchor.constraint(equalTo:
+      containerGuide.topAnchor).isActive = true
+    titleLabel.leadingAnchor.constraint(equalTo:
+      containerGuide.leadingAnchor).isActive = true
+    titleLabel.trailingAnchor.constraint(equalTo:
+      containerGuide.trailingAnchor).isActive = true
     titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     
-    categoryLabelView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
-    categoryLabelView.leadingAnchor.constraint(equalTo: containerGuide.leadingAnchor).isActive = true
-    categoryLabelView.trailingAnchor.constraint(equalTo: containerGuide.trailingAnchor).isActive = true
-    categoryLabelView.bottomAnchor.constraint(equalTo: containerGuide.bottomAnchor).isActive = true
+    categoryLabelView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
+                                           constant: 8).isActive = true
+    categoryLabelView.leadingAnchor.constraint(equalTo:
+      containerGuide.leadingAnchor).isActive = true
+    categoryLabelView.trailingAnchor.constraint(equalTo:
+      containerGuide.trailingAnchor).isActive = true
+    categoryLabelView.bottomAnchor.constraint(equalTo:
+      containerGuide.bottomAnchor).isActive = true
     
     categoryLabels.forEach {
       categoryLabelView.addSubview($0)
@@ -57,15 +68,21 @@ class CategoryCell: UITableViewCell {
     for i in 0..<categoryLabels.count {
       let label = categoryLabels[i]
       label.textAlignment = .center
-      label.widthAnchor.constraint(equalToConstant: label.intrinsicContentSize.width + 20).isActive = true
-      label.heightAnchor.constraint(equalToConstant: label.intrinsicContentSize.height + 20).isActive = true
+      label.widthAnchor.constraint(equalToConstant:
+        label.intrinsicContentSize.width + 20).isActive = true
+      label.heightAnchor.constraint(equalToConstant:
+        label.intrinsicContentSize.height + 20).isActive = true
       if i == 0 {
-        label.leadingAnchor.constraint(equalTo: categoryLabelView.leadingAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: categoryLabelView.centerYAnchor).isActive = true
+        label.leadingAnchor.constraint(equalTo:
+          categoryLabelView.leadingAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo:
+          categoryLabelView.centerYAnchor).isActive = true
       } else {
         if let last = lastLabel {
-          label.leadingAnchor.constraint(equalTo: last.trailingAnchor, constant: 20).isActive = true
-          label.centerYAnchor.constraint(equalTo: last.centerYAnchor).isActive = true
+          label.leadingAnchor.constraint(equalTo: last.trailingAnchor,
+                                         constant: 20).isActive = true
+          label.centerYAnchor.constraint(equalTo:
+            last.centerYAnchor).isActive = true
         }
       }
       lastLabel = label

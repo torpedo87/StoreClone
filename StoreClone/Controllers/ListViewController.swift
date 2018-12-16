@@ -10,14 +10,22 @@ import UIKit
 
 class ListViewController: UIViewController {
   var networkManager: NetworkManager!
+  let keyword: String = "핸드메이드"
   
-  private var list: [Artwork] = []
+  private var list: [Artwork] = [] {
+    didSet {
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+    }
+  }
   private lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.dataSource = self
     tableView.delegate = self
-    tableView.register(ListCell.self, forCellReuseIdentifier: ListCell.reusableIdentifier)
+    tableView.register(ListCell.self,
+                       forCellReuseIdentifier: ListCell.reusableIdentifier)
     return tableView
   }()
   
@@ -29,15 +37,14 @@ class ListViewController: UIViewController {
     super.viewDidLoad()
     setupUI()
     
-    networkManager.loadData(keyword: "핸드메이드") { [weak self] result in
+    let url = networkManager.convertKeywordToUrl(keyword: keyword)
+    networkManager.loadData(url: url) { [weak self] result in
       guard let self = self else { return }
       
       switch result {
-      case .success(let artworks):
+      case .success(let data):
+        let artworks = self.networkManager.convertDataToArtworks(data: data)
         self.list = artworks
-        DispatchQueue.main.async {
-          self.tableView.reloadData()
-        }
       case .failure(let error):
         switch error {
         case .client:
@@ -50,25 +57,30 @@ class ListViewController: UIViewController {
   }
   
   func setupUI() {
-    title = "핸드메이드"
+    title = keyword
     view.backgroundColor = .white
     view.addSubview(tableView)
     
-    tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-    tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-    tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    tableView.topAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.topAnchor).isActive = true
+    tableView.leadingAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+    tableView.trailingAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+    tableView.bottomAnchor.constraint(equalTo:
+      view.safeAreaLayoutGuide.bottomAnchor).isActive = true
   }
 
-  
 }
 
 extension ListViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView,
+                 numberOfRowsInSection section: Int) -> Int {
     return list.count
   }
   
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView,
+                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.reusableIdentifier,
                                                 for: indexPath) as? ListCell {
       let artwork = self.list[indexPath.row]
@@ -84,14 +96,16 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: UITableViewDelegate {
   
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+  func tableView(_ tableView: UITableView,
+                 heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 500
   }
   
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView,
+                 didSelectRowAt indexPath: IndexPath) {
     let selectedArtwork = list[indexPath.row]
-    let detailViewController = DetailViewController()
-    detailViewController.artwork = selectedArtwork
-    self.navigationController?.pushViewController(detailViewController, animated: true)
+    let detailViewController = DetailViewController(artwork: selectedArtwork)
+    self.navigationController?.pushViewController(detailViewController,
+                                                  animated: true)
   }
 }

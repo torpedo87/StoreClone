@@ -12,16 +12,16 @@ protocol DynamicCellDelegate: class {
   func moreInfoButtonTapped()
 }
 
-class DynamicCell: NormalCell {
-  
-  static let reusableIdentifier = "DynamicCell"
+class DynamicCell: StandardCell {
+  static let reuseableIdentifier = "DynamicCell"
   weak var delegate: DynamicCellDelegate?
   private var isExpanded: Bool = false
   private lazy var expandButton: UIButton = {
     let button = UIButton()
     button.setTitle("v", for: .normal)
     button.translatesAutoresizingMaskIntoConstraints = false
-    button.addTarget(self, action: #selector(handleExpand(_:)), for: .touchUpInside)
+    button.addTarget(self, action: #selector(handleExpand(_:)),
+                     for: .touchUpInside)
     button.setTitleColor(.black, for: .normal)
     return button
   }()
@@ -50,21 +50,26 @@ class DynamicCell: NormalCell {
     
     expandButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     expandButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-    expandButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-    expandButton.leadingAnchor.constraint(equalTo: detailLabel.trailingAnchor, constant: 8).isActive = true
+    expandButton.centerYAnchor.constraint(equalTo:
+      titleLabel.centerYAnchor).isActive = true
+    expandButton.leadingAnchor.constraint(equalTo: detailLabel.trailingAnchor,
+                                          constant: 8).isActive = true
     
     moreInfoLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-    moreInfoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-    moreInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-    moreInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8).isActive = true
+    moreInfoLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                           constant: 8).isActive = true
+    moreInfoLabel.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                            constant: -8).isActive = true
+    moreInfoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,
+                                       constant: 8).isActive = true
     moreInfoHeightConstraint.isActive = true
   }
   
-  override func configure(title: String, detail: String, moreInfo: String?) {
-    super.configure(title: title, detail: detail)
+  override func configure(title: String?, detail: String?, artWork: Artwork?) {
+    super.configure(title: title, detail: detail, artWork: artWork)
     addSubview(expandButton)
     addSubview(moreInfoLabel)
-    moreInfoLabel.text = moreInfo
+    moreInfoLabel.text = artWork?.releaseNotes
   }
   
   @objc func handleExpand(_ recognizer: UIButton) {
@@ -73,7 +78,7 @@ class DynamicCell: NormalCell {
       let angle: CGFloat = self.isExpanded ? .pi : 0.0
       self.expandButton.transform = CGAffineTransform(rotationAngle: angle)
       self.expandButton.layoutIfNeeded()
-      self.moreInfoHeightConstraint.constant = self.isExpanded ? 50 : 0
+      self.moreInfoHeightConstraint.constant = self.isExpanded ? 100 : 0
       self.delegate?.moreInfoButtonTapped()
     }
   }

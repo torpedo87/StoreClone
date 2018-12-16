@@ -24,7 +24,8 @@ struct Artwork {
   private(set) var age: String
   var readableSize: String {
     let byte = Int64(size)
-    let convertedSize = ByteCountFormatter.string(fromByteCount: byte!, countStyle: .binary)
+    let convertedSize = ByteCountFormatter.string(fromByteCount: byte!,
+                                                  countStyle: .binary)
     return convertedSize
   }
 }

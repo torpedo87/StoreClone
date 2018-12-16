@@ -46,7 +46,8 @@ class TopCell: UITableViewCell {
   
   private lazy var customLayout: UICollectionViewFlowLayout = {
     let layout = UICollectionViewFlowLayout()
-    layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 2 + 50, height: UIScreen.main.bounds.height/2 - 30)
+    layout.itemSize = CGSize(width: UIScreen.main.bounds.width / 2 + 50,
+                             height: UIScreen.main.bounds.height/2 - 30)
     layout.scrollDirection = .horizontal
     return layout
   }()
@@ -56,7 +57,8 @@ class TopCell: UITableViewCell {
                                 collectionViewLayout: customLayout)
     view.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     view.dataSource = self
-    view.register(CarouselCell.self, forCellWithReuseIdentifier: CarouselCell.reuseIdentifier)
+    view.register(CarouselCell.self,
+                  forCellWithReuseIdentifier: CarouselCell.reuseIdentifier)
     view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = .white
     return view
@@ -83,7 +85,8 @@ class TopCell: UITableViewCell {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("웹에서 보기", for: .normal)
-    button.addTarget(self, action: #selector(webButtonTapped(_:)), for: .touchUpInside)
+    button.addTarget(self, action: #selector(webButtonTapped(_:)),
+                     for: .touchUpInside)
     button.layer.borderWidth = 0.5
     button.setTitleColor(.black, for: .normal)
     return button
@@ -92,7 +95,8 @@ class TopCell: UITableViewCell {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("공유하기", for: .normal)
-    button.addTarget(self, action: #selector(shareButtonTapped(_:)), for: .touchUpInside)
+    button.addTarget(self, action: #selector(shareButtonTapped(_:)),
+                     for: .touchUpInside)
     button.layer.borderWidth = 0.5
     button.setTitleColor(.black, for: .normal)
     return button
@@ -101,15 +105,23 @@ class TopCell: UITableViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
     
-    collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-    collectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-    collectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-    collectionView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 2).isActive = true
+    collectionView.topAnchor.constraint(equalTo:
+      topAnchor).isActive = true
+    collectionView.leadingAnchor.constraint(equalTo:
+      leadingAnchor).isActive = true
+    collectionView.trailingAnchor.constraint(equalTo:
+      trailingAnchor).isActive = true
+    collectionView.heightAnchor.constraint(equalToConstant:
+      UIScreen.main.bounds.height / 2).isActive = true
     
-    stackView.topAnchor.constraint(equalTo: collectionView.bottomAnchor).isActive = true
-    stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-    stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-    stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -9).isActive = true
+    stackView.topAnchor.constraint(equalTo:
+      collectionView.bottomAnchor).isActive = true
+    stackView.leadingAnchor.constraint(equalTo:
+      leadingAnchor, constant: 8).isActive = true
+    stackView.trailingAnchor.constraint(equalTo:
+      trailingAnchor, constant: -8).isActive = true
+    stackView.bottomAnchor.constraint(equalTo:
+      bottomAnchor, constant: -9).isActive = true
   }
   
   func configure(artwork: Artwork) {
@@ -128,7 +140,8 @@ class TopCell: UITableViewCell {
   @objc func webButtonTapped(_ recognizer: UIButton) {
     if let url = URL(string: artwork.trackViewUrl) {
       print(artwork.trackViewUrl)
-      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+      UIApplication.shared.open(url, options: [:],
+                                completionHandler: nil)
     }
   }
   
@@ -139,11 +152,13 @@ class TopCell: UITableViewCell {
 
 extension TopCell: UICollectionViewDataSource {
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView,
+                      numberOfItemsInSection section: Int) -> Int {
     return self.artwork.screenshotUrls.count
   }
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView,
+                      cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCell.reuseIdentifier,
                                                      for: indexPath) as? CarouselCell {
       cell.configure(screenshotUrlString: artwork.screenshotUrls[indexPath.item])
