@@ -24,6 +24,7 @@
 		487D447B21C28639004696A0 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D447A21C28639004696A0 /* ListCell.swift */; };
 		48CFD25321C523D5004C2821 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25221C523D5004C2821 /* CategoryCell.swift */; };
 		48CFD25A21C63F6B004C2821 /* StandardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25921C63F6B004C2821 /* StandardCell.swift */; };
+		48CFD25C21C65B52004C2821 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25B21C65B52004C2821 /* RatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		487D447A21C28639004696A0 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		48CFD25221C523D5004C2821 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		48CFD25921C63F6B004C2821 /* StandardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardCell.swift; sourceTree = "<group>"; };
+		48CFD25B21C65B52004C2821 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				486E317221C3BF670063B75C /* DynamicCell.swift */,
 				48CFD25221C523D5004C2821 /* CategoryCell.swift */,
 				48CFD25921C63F6B004C2821 /* StandardCell.swift */,
+				48CFD25B21C65B52004C2821 /* RatingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				487D445F21C14A82004696A0 /* Artwork.swift in Sources */,
 				486E316F21C39EB30063B75C /* CarouselCell.swift in Sources */,
 				486E316D21C398FC0063B75C /* TopCell.swift in Sources */,
+				48CFD25C21C65B52004C2821 /* RatingView.swift in Sources */,
 				487D447B21C28639004696A0 /* ListCell.swift in Sources */,
 				486E316921C377AB0063B75C /* UIImageView.swift in Sources */,
 				48CFD25A21C63F6B004C2821 /* StandardCell.swift in Sources */,

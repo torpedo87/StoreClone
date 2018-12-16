@@ -106,7 +106,6 @@ class CategoryCell: UITableViewCell {
   
   override func prepareForReuse() {
     super.prepareForReuse()
-    titleLabel.text = nil
     categoryLabels = []
     categoryLabelView.subviews.forEach { $0.removeFromSuperview() }
   }

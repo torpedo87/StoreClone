@@ -11,7 +11,6 @@ import UIKit
 class ListCell: UITableViewCell {
   
   static let reusableIdentifier: String = "ListCell"
-  private let maxRating: Double = 5.0
   private var artwork: Artwork!
   private let containerLayoutGuide = UILayoutGuide()
   private lazy var imgView: UIImageView = {
@@ -37,13 +36,11 @@ class ListCell: UITableViewCell {
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
-  private lazy var ratingView: UIView = {
-    let view = UIView()
+  private lazy var ratingView: RatingView = {
+    let view = RatingView(averageRating: artwork.rating!)
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
-  private var starImageViews = [UIImageView]()
-
   private lazy var sellerLabel: UILabel = {
     let label = UILabel()
     label.textColor = .darkGray
@@ -135,8 +132,15 @@ class ListCell: UITableViewCell {
     priceLabel.bottomAnchor.constraint(equalTo:
       bottomView.bottomAnchor).isActive = true
     
-    if let averageRating = artwork.rating {
-      addRatingView(averageRating: averageRating)
+    if let _ = artwork.rating {
+      bottomView.addSubview(ratingView)
+      ratingView.topAnchor.constraint(equalTo:
+        bottomView.topAnchor).isActive = true
+      ratingView.trailingAnchor.constraint(equalTo:
+        bottomView.trailingAnchor).isActive = true
+      ratingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+      ratingView.heightAnchor.constraint(equalTo:
+        categoryLabel.heightAnchor).isActive = true
     }
   }
   
@@ -160,47 +164,6 @@ class ListCell: UITableViewCell {
     priceLabel.text = artwork.price
   }
   
-  func addRatingView(averageRating: Double) {
-    bottomView.addSubview(ratingView)
-    ratingView.topAnchor.constraint(equalTo:
-      bottomView.topAnchor).isActive = true
-    ratingView.trailingAnchor.constraint(equalTo:
-      bottomView.trailingAnchor).isActive = true
-    ratingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    ratingView.heightAnchor.constraint(equalTo:
-      categoryLabel.heightAnchor).isActive = true
-    let starWidth = ratingView.bounds.width / CGFloat(maxRating)
-    let fullStarCount = Int(averageRating)
-    let hasHalfStar: Bool = averageRating - Double(fullStarCount) > 0
-    
-    var IsHalfStarAdded: Bool = false
-    for i in 1...Int(maxRating) {
-      var starImage: UIImage
-      if i <= fullStarCount {
-        starImage = UIImage(named: "full")!
-      } else if hasHalfStar && !IsHalfStarAdded {
-        starImage = UIImage(named: "half")!
-        IsHalfStarAdded = true
-      } else {
-        starImage = UIImage(named: "empty")!
-      }
-      
-      let starImageView = UIImageView(image: starImage)
-      starImageView.translatesAutoresizingMaskIntoConstraints = false
-      starImageView.contentMode = .scaleAspectFit
-      ratingView.addSubview(starImageView)
-      
-      starImageView.topAnchor.constraint(equalTo:
-        ratingView.topAnchor).isActive = true
-      starImageView.bottomAnchor.constraint(equalTo:
-        ratingView.bottomAnchor).isActive = true
-      starImageView.widthAnchor.constraint(equalToConstant: starWidth).isActive = true
-      starImageView.leadingAnchor.constraint(equalTo: ratingView.leadingAnchor,
-                                             constant: starWidth * CGFloat(i-1)).isActive = true
-      starImageViews.append(starImageView)
-    }
-  }
-  
   override func prepareForReuse() {
     super.prepareForReuse()
     
@@ -209,7 +172,8 @@ class ListCell: UITableViewCell {
     sellerLabel.text = nil
     categoryLabel.text = nil
     priceLabel.text = nil
-    starImageViews = []
-    ratingView.subviews.forEach { $0.removeFromSuperview() }
+    if let _ = artwork.rating {
+      ratingView.reset()
+    }
   }
 }
