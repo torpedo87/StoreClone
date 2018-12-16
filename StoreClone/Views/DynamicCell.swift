@@ -16,7 +16,7 @@ class DynamicCell: StandardCell {
   static let reuseableIdentifier = "DynamicCell"
   weak var delegate: DynamicCellDelegate?
   private var isExpanded: Bool = false
-  private lazy var expandButton: UIButton = {
+  lazy var expandButton: UIButton = {
     let button = UIButton()
     button.setTitle("v", for: .normal)
     button.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,7 @@ class DynamicCell: StandardCell {
     button.setTitleColor(.black, for: .normal)
     return button
   }()
-  private lazy var moreInfoLabel: UILabel = {
+  lazy var moreInfoLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.numberOfLines = 0

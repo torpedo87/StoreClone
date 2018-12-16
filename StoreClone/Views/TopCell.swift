@@ -81,7 +81,7 @@ class TopCell: UITableViewCell {
     stack.translatesAutoresizingMaskIntoConstraints = false
     return stack
   }()
-  private lazy var webButton: UIButton = {
+  lazy var webButton: UIButton = {
     let button = UIButton()
     button.translatesAutoresizingMaskIntoConstraints = false
     button.setTitle("웹에서 보기", for: .normal)
@@ -139,7 +139,6 @@ class TopCell: UITableViewCell {
   
   @objc func webButtonTapped(_ recognizer: UIButton) {
     if let url = URL(string: artwork.trackViewUrl) {
-      print(artwork.trackViewUrl)
       UIApplication.shared.open(url, options: [:],
                                 completionHandler: nil)
     }

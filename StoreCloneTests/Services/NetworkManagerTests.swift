@@ -24,11 +24,13 @@ class NetworkManagerTests: XCTestCase {
   }
   
   func test_loadData() {
-    
+    //given
     let data = Data(bytes: [0, 1, 0, 1])
     session.data = data
     var result: Result<Data, LoadingError>?
     let url = URL(fileURLWithPath: "url")
+    
+    //when
     manager.loadData(url: url) { result = $0 }
     var resultData: Data?
     do {
@@ -37,10 +39,12 @@ class NetworkManagerTests: XCTestCase {
       XCTFail("result resolve fail")
     }
     
+    //then
     XCTAssertEqual(resultData, data)
   }
   
   func test_convertDataToArtworks() {
+    //given
     let testBundle = Bundle(for: NetworkManagerTests.self)
     var data = Data()
     if let fileUrl = testBundle.url(forResource: "raw", withExtension: "txt") {
@@ -53,7 +57,10 @@ class NetworkManagerTests: XCTestCase {
       XCTFail("example.txt not found!")
     }
     
+    //when
     let artworks = manager.convertDataToArtworks(data: data)
+    
+    //then
     XCTAssertEqual(artworks.count, 43)
     XCTAssertTrue(artworks.contains { $0.name == "아이디어스(idus)" })
   }

@@ -11,7 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
   
   private var artwork: Artwork!
-  private lazy var tableView: UITableView = {
+  lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.dataSource = self
@@ -24,7 +24,6 @@ class DetailViewController: UIViewController {
                        forCellReuseIdentifier: StandardCell.reuseIdentifier)
     tableView.register(CategoryCell.self,
                        forCellReuseIdentifier: CategoryCell.reuseIdentifier)
-    //tableView.rowHeight = UITableView.automaticDimension
     tableView.estimatedRowHeight = 500
     return tableView
   }()

@@ -25,6 +25,9 @@
 		48CFD25321C523D5004C2821 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25221C523D5004C2821 /* CategoryCell.swift */; };
 		48CFD25A21C63F6B004C2821 /* StandardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25921C63F6B004C2821 /* StandardCell.swift */; };
 		48CFD25C21C65B52004C2821 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25B21C65B52004C2821 /* RatingView.swift */; };
+		48CFD25F21C665AA004C2821 /* ListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25E21C665AA004C2821 /* ListViewControllerTests.swift */; };
+		48CFD26321C6801B004C2821 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD26221C6801B004C2821 /* MockNavigationController.swift */; };
+		48CFD26721C6833A004C2821 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD26621C6833A004C2821 /* DetailViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +63,9 @@
 		48CFD25221C523D5004C2821 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		48CFD25921C63F6B004C2821 /* StandardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardCell.swift; sourceTree = "<group>"; };
 		48CFD25B21C65B52004C2821 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		48CFD25E21C665AA004C2821 /* ListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerTests.swift; sourceTree = "<group>"; };
+		48CFD26221C6801B004C2821 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
+		48CFD26621C6833A004C2821 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,7 @@
 		487D444D21C13F46004696A0 /* StoreCloneTests */ = {
 			isa = PBXGroup;
 			children = (
+				48CFD25D21C6658F004C2821 /* Controllers */,
 				48CFD25621C61AD2004C2821 /* Services */,
 				487D447421C26BD7004696A0 /* raw.txt */,
 				487D447321C26A6B004696A0 /* Mocks */,
@@ -192,6 +199,7 @@
 			children = (
 				487D446B21C259FF004696A0 /* URLSessionDataTaskMock.swift */,
 				487D447621C270E7004696A0 /* URLSessionMock.swift */,
+				48CFD26221C6801B004C2821 /* MockNavigationController.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -202,6 +210,15 @@
 				487D447121C266C3004696A0 /* NetworkManagerTests.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		48CFD25D21C6658F004C2821 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				48CFD25E21C665AA004C2821 /* ListViewControllerTests.swift */,
+				48CFD26621C6833A004C2821 /* DetailViewControllerTests.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,8 +342,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				487D447721C270E7004696A0 /* URLSessionMock.swift in Sources */,
+				48CFD26321C6801B004C2821 /* MockNavigationController.swift in Sources */,
 				487D447221C266C3004696A0 /* NetworkManagerTests.swift in Sources */,
+				48CFD25F21C665AA004C2821 /* ListViewControllerTests.swift in Sources */,
 				487D446C21C259FF004696A0 /* URLSessionDataTaskMock.swift in Sources */,
+				48CFD26721C6833A004C2821 /* DetailViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,7 @@ class ListViewController: UIViewController {
       }
     }
   }
-  private lazy var tableView: UITableView = {
+  lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.dataSource = self
@@ -29,6 +29,14 @@ class ListViewController: UIViewController {
     return tableView
   }()
   
+  init(manager: NetworkManager) {
+    self.networkManager = manager
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   override func viewWillAppear(_ animated: Bool) {
     navigationController?.navigationBar.prefersLargeTitles = true
   }
@@ -40,18 +48,21 @@ class ListViewController: UIViewController {
     let url = networkManager.convertKeywordToUrl(keyword: keyword)
     networkManager.loadData(url: url) { [weak self] result in
       guard let self = self else { return }
-      
-      switch result {
-      case .success(let data):
-        let artworks = self.networkManager.convertDataToArtworks(data: data)
-        self.list = artworks
-      case .failure(let error):
-        switch error {
-        case .client:
-          print("client error occured")
-        case .server:
-          print("server error occured")
-        }
+      self.handleResult(result: result)
+    }
+  }
+  
+  func handleResult(result: Result<Data, LoadingError>) {
+    switch result {
+    case .success(let data):
+      let artworks = self.networkManager.convertDataToArtworks(data: data)
+      self.list = artworks
+    case .failure(let error):
+      switch error {
+      case .client:
+        print("client error occured")
+      case .server:
+        print("server error occured")
       }
     }
   }

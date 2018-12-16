@@ -23,4 +23,17 @@ class URLSessionMock: URLSession {
       completionHandler(data, nil, error)
     }
   }
+  
+  func setMockData() {
+    let testBundle = Bundle(for: NetworkManagerTests.self)
+    var data = Data()
+    if let fileUrl = testBundle.url(forResource: "raw", withExtension: "txt") {
+      do {
+        data = try Data(contentsOf: fileUrl)
+      } catch {
+        fatalError("fetch mock data failed")
+      }
+    }
+    self.data = data
+  }
 }

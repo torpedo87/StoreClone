@@ -20,11 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window = UIWindow()
     window?.makeKeyAndVisible()
     let networkManager = NetworkManager()
-    let listViewController = ListViewController()
-    listViewController.networkManager = networkManager
+    let listViewController = ListViewController(manager: networkManager)
     window?.rootViewController = UINavigationController(rootViewController: listViewController)
     return true
   }
-
 }
 
