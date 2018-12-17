@@ -25,6 +25,7 @@ class DetailViewController: UIViewController {
     tableView.register(CategoryCell.self,
                        forCellReuseIdentifier: CategoryCell.reuseIdentifier)
     tableView.estimatedRowHeight = 500
+    tableView.rowHeight = UITableView.automaticDimension
     return tableView
   }()
   

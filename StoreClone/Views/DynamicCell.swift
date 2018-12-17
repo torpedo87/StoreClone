@@ -42,6 +42,7 @@ class DynamicCell: StandardCell {
       attribute: .height,
       multiplier: 0,
       constant: 0)
+    heightConstraint.priority = UILayoutPriority(rawValue: 999)
     return heightConstraint
   }()
   
@@ -69,10 +70,12 @@ class DynamicCell: StandardCell {
     super.configure(title: title, detail: detail, artWork: artWork)
     addSubview(expandButton)
     addSubview(moreInfoLabel)
+    
     moreInfoLabel.text = artWork?.releaseNotes
   }
   
   @objc func handleExpand(_ recognizer: UIButton) {
+    
     isExpanded = !isExpanded
     UIView.animate(withDuration: 0.5) {
       let angle: CGFloat = self.isExpanded ? .pi : 0.0
