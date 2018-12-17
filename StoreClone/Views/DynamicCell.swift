@@ -29,7 +29,7 @@ class DynamicCell: StandardCell {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.numberOfLines = 0
-    label.backgroundColor = .lightGray
+    label.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     return label
   }()
   

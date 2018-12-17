@@ -15,7 +15,12 @@ class CategoryCell: UITableViewCell {
     let container = UILayoutGuide()
     return container
   }()
-  
+  private lazy var backView: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .white
+    return view
+  }()
   private lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,15 +38,21 @@ class CategoryCell: UITableViewCell {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    
-    containerGuide.topAnchor.constraint(equalTo: topAnchor,
+    containerGuide.topAnchor.constraint(equalTo: backView.topAnchor,
                                         constant: 8).isActive = true
-    containerGuide.leadingAnchor.constraint(equalTo: leadingAnchor,
+    containerGuide.leadingAnchor.constraint(equalTo: backView.leadingAnchor,
                                             constant: 8).isActive = true
-    containerGuide.trailingAnchor.constraint(equalTo: trailingAnchor,
+    containerGuide.trailingAnchor.constraint(equalTo: backView.trailingAnchor,
                                              constant: -8).isActive = true
-    containerGuide.bottomAnchor.constraint(equalTo: bottomAnchor,
+    containerGuide.bottomAnchor.constraint(equalTo: backView.bottomAnchor,
                                            constant: -8).isActive = true
+    
+    backView.topAnchor.constraint(equalTo: topAnchor,
+                                  constant: 8).isActive = true
+    backView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+    backView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+    backView.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                     constant: -8).isActive = true
     
     titleLabel.topAnchor.constraint(equalTo:
       containerGuide.topAnchor).isActive = true
@@ -69,9 +80,9 @@ class CategoryCell: UITableViewCell {
       let label = categoryLabels[i]
       label.textAlignment = .center
       label.widthAnchor.constraint(equalToConstant:
-        label.intrinsicContentSize.width + 20).isActive = true
+        label.intrinsicContentSize.width + 10).isActive = true
       label.heightAnchor.constraint(equalToConstant:
-        label.intrinsicContentSize.height + 20).isActive = true
+        label.intrinsicContentSize.height + 10).isActive = true
       if i == 0 {
         label.leadingAnchor.constraint(equalTo:
           categoryLabelView.leadingAnchor).isActive = true
@@ -91,9 +102,11 @@ class CategoryCell: UITableViewCell {
   
   func configure(genre: [String]) {
     selectionStyle = .none
+    backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     addLayoutGuide(containerGuide)
-    addSubview(titleLabel)
-    addSubview(categoryLabelView)
+    addSubview(backView)
+    backView.addSubview(titleLabel)
+    backView.addSubview(categoryLabelView)
     
     for i in 0..<genre.count {
       let label = UILabel()

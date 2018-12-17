@@ -147,7 +147,7 @@ class ListCell: UITableViewCell {
   func configure(artwork: Artwork) {
     self.artwork = artwork
     selectionStyle = .none
-    backgroundColor = .lightGray
+    backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     addLayoutGuide(containerLayoutGuide)
     addSubview(imgView)
     addSubview(topView)
