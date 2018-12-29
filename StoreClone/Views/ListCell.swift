@@ -12,6 +12,7 @@ class ListCell: UITableViewCell {
   
   static let reusableIdentifier: String = "ListCell"
   private var artwork: Artwork!
+  var iconImage: UIImage?
   private let containerLayoutGuide = UILayoutGuide()
   private lazy var imgView: UIImageView = {
     let imgView = UIImageView()
@@ -144,7 +145,7 @@ class ListCell: UITableViewCell {
     }
   }
   
-  func configure(artwork: Artwork) {
+  func configure(artwork: Artwork, iconImage: UIImage?) {
     self.artwork = artwork
     selectionStyle = .none
     backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
@@ -157,11 +158,23 @@ class ListCell: UITableViewCell {
     bottomView.addSubview(categoryLabel)
     bottomView.addSubview(priceLabel)
     
-    imgView.loadImageWithUrlString(urlString: artwork.iconImageUrl)
+    DispatchQueue.main.async {
+      self.displayIcon(iconImage)
+    }
+    //imgView.loadImageWithUrlString(urlString: artwork.iconImageUrl)
     titleLabel.text = artwork.name
     sellerLabel.text = artwork.artist
     categoryLabel.text = artwork.genres.first
     priceLabel.text = artwork.price
+  }
+  
+  private func displayIcon(_ iconImage: UIImage?) {
+    self.iconImage = iconImage
+    if let iconImage = iconImage {
+      imgView.image = iconImage
+    } else {
+      imgView.image = UIImage(named: "placeholder")
+    }
   }
   
   override func prepareForReuse() {
@@ -175,5 +188,6 @@ class ListCell: UITableViewCell {
     if let _ = artwork.rating {
       ratingView.reset()
     }
+    
   }
 }

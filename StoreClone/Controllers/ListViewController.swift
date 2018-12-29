@@ -11,19 +11,17 @@ import UIKit
 class ListViewController: UIViewController {
   var networkManager: NetworkManager!
   let keyword: String = "핸드메이드"
+  var loadingOperations: [IndexPath: DataLoadOperation] = [:]
+  var loadingQueue = OperationQueue()
+  var dataStore: DataStore = DataStore(list: [])
   
-  private var list: [Artwork] = [] {
-    didSet {
-      DispatchQueue.main.async {
-        self.tableView.reloadData()
-      }
-    }
-  }
+  private var list: [Artwork] = []
   lazy var tableView: UITableView = {
     let tableView = UITableView()
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.dataSource = self
     tableView.delegate = self
+    tableView.prefetchDataSource = self
     tableView.register(ListCell.self,
                        forCellReuseIdentifier: ListCell.reusableIdentifier)
     return tableView
@@ -57,6 +55,11 @@ class ListViewController: UIViewController {
     case .success(let data):
       let artworks = self.networkManager.convertDataToArtworks(data: data)
       self.list = artworks
+      self.dataStore = DataStore(list: artworks)
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
+      
     case .failure(let error):
       switch error {
       case .client:
@@ -95,7 +98,7 @@ extension ListViewController: UITableViewDataSource {
     if let cell = tableView.dequeueReusableCell(withIdentifier: ListCell.reusableIdentifier,
                                                 for: indexPath) as? ListCell {
       let artwork = self.list[indexPath.row]
-      cell.configure(artwork: artwork)
+      cell.configure(artwork: artwork, iconImage: .none)
       return cell
     }
     
@@ -118,5 +121,62 @@ extension ListViewController: UITableViewDelegate {
     let detailViewController = DetailViewController(artwork: selectedArtwork)
     self.navigationController?.pushViewController(detailViewController,
                                                   animated: true)
+  }
+  
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    guard let cell = cell as? ListCell else { return }
+    
+    let updateCellClosure: (UIImage?) -> () = { [weak self] iconImage in
+      guard let self = self else {
+        return
+      }
+      cell.configure(artwork: self.list[indexPath.row], iconImage: iconImage)
+      self.loadingOperations.removeValue(forKey: indexPath)
+    }
+    
+    if let loadOperation = loadingOperations[indexPath] {
+      if let icon = loadOperation.icon {
+        cell.configure(artwork: self.list[indexPath.row], iconImage: icon)
+        loadingOperations.removeValue(forKey: indexPath)
+      } else {
+        loadOperation.loadingCompleteHandler = updateCellClosure
+      }
+    } else {
+      if let loadOperation = dataStore.loadImageOperation(at: indexPath.row) {
+        loadOperation.loadingCompleteHandler = updateCellClosure
+        loadingQueue.addOperation(loadOperation)
+        loadingOperations[indexPath] = loadOperation
+      }
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    if let loadOperation = loadingOperations[indexPath] {
+      loadOperation.cancel()
+      loadingOperations.removeValue(forKey: indexPath)
+    }
+  }
+}
+
+extension ListViewController: UITableViewDataSourcePrefetching {
+  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+    for indexPath in indexPaths {
+      if let _ = loadingOperations[indexPath] {
+        continue
+      }
+      if let loadOperation = dataStore.loadImageOperation(at: indexPath.row) {
+        loadingQueue.addOperation(loadOperation)
+        loadingOperations[indexPath] = loadOperation
+      }
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+    for indexPath in indexPaths {
+      if let loadOperation = loadingOperations[indexPath] {
+        loadOperation.cancel()
+        loadingOperations.removeValue(forKey: indexPath)
+      }
+    }
   }
 }

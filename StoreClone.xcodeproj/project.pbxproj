@@ -28,6 +28,7 @@
 		48CFD25F21C665AA004C2821 /* ListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD25E21C665AA004C2821 /* ListViewControllerTests.swift */; };
 		48CFD26321C6801B004C2821 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD26221C6801B004C2821 /* MockNavigationController.swift */; };
 		48CFD26721C6833A004C2821 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CFD26621C6833A004C2821 /* DetailViewControllerTests.swift */; };
+		48EF494B21D77EAF0060E539 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EF494A21D77EAF0060E539 /* DataStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		48CFD25E21C665AA004C2821 /* ListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerTests.swift; sourceTree = "<group>"; };
 		48CFD26221C6801B004C2821 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
 		48CFD26621C6833A004C2821 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
+		48EF494A21D77EAF0060E539 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				487D446D21C25BF2004696A0 /* NetworkManager.swift */,
+				48EF494A21D77EAF0060E539 /* DataStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				487D445F21C14A82004696A0 /* Artwork.swift in Sources */,
 				486E316F21C39EB30063B75C /* CarouselCell.swift in Sources */,
 				486E316D21C398FC0063B75C /* TopCell.swift in Sources */,
+				48EF494B21D77EAF0060E539 /* DataStore.swift in Sources */,
 				48CFD25C21C65B52004C2821 /* RatingView.swift in Sources */,
 				487D447B21C28639004696A0 /* ListCell.swift in Sources */,
 				486E316921C377AB0063B75C /* UIImageView.swift in Sources */,
