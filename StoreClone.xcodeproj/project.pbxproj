@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		480A1A8221E06A29008CBED5 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A1A8121E06A29008CBED5 /* DetailsViewController.swift */; };
+		480A1A8621E07B35008CBED5 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A1A8521E07B35008CBED5 /* CellView.swift */; };
 		486E316921C377AB0063B75C /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E316821C377AB0063B75C /* UIImageView.swift */; };
 		486E316B21C3858E0063B75C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E316A21C3858E0063B75C /* DetailViewController.swift */; };
 		486E316D21C398FC0063B75C /* TopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E316C21C398FC0063B75C /* TopCell.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		480A1A8121E06A29008CBED5 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		480A1A8521E07B35008CBED5 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		486E316821C377AB0063B75C /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		486E316A21C3858E0063B75C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		486E316C21C398FC0063B75C /* TopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCell.swift; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 			children = (
 				487D443B21C13F45004696A0 /* ListViewController.swift */,
 				486E316A21C3858E0063B75C /* DetailViewController.swift */,
+				480A1A8121E06A29008CBED5 /* DetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				48CFD25221C523D5004C2821 /* CategoryCell.swift */,
 				48CFD25921C63F6B004C2821 /* StandardCell.swift */,
 				48CFD25B21C65B52004C2821 /* RatingView.swift */,
+				480A1A8521E07B35008CBED5 /* CellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -331,6 +337,7 @@
 				487D445F21C14A82004696A0 /* Artwork.swift in Sources */,
 				486E316F21C39EB30063B75C /* CarouselCell.swift in Sources */,
 				486E316D21C398FC0063B75C /* TopCell.swift in Sources */,
+				480A1A8621E07B35008CBED5 /* CellView.swift in Sources */,
 				48EF494B21D77EAF0060E539 /* DataStore.swift in Sources */,
 				48CFD25C21C65B52004C2821 /* RatingView.swift in Sources */,
 				487D447B21C28639004696A0 /* ListCell.swift in Sources */,
@@ -338,6 +345,7 @@
 				48CFD25A21C63F6B004C2821 /* StandardCell.swift in Sources */,
 				487D443A21C13F45004696A0 /* AppDelegate.swift in Sources */,
 				486E316B21C3858E0063B75C /* DetailViewController.swift in Sources */,
+				480A1A8221E06A29008CBED5 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

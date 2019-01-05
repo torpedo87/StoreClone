@@ -129,8 +129,8 @@ extension DetailViewController: UITableViewDelegate {
 extension DetailViewController: DynamicCellDelegate {
   func moreInfoButtonTapped() {
     tableView.beginUpdates()
-    tableView.layoutIfNeeded()
     tableView.endUpdates()
+    tableView.layoutIfNeeded()
   }
 }
 

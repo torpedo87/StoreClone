@@ -118,8 +118,8 @@ extension ListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView,
                  didSelectRowAt indexPath: IndexPath) {
     let selectedArtwork = list[indexPath.row]
-    let detailViewController = DetailViewController(artwork: selectedArtwork)
-    self.navigationController?.pushViewController(detailViewController,
+    let detailsViewController = DetailsViewController(artwork: selectedArtwork)
+    self.navigationController?.pushViewController(detailsViewController,
                                                   animated: true)
   }
   
