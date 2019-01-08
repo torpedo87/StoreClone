@@ -11,7 +11,7 @@ import XCTest
 
 class DetailViewControllerTests: XCTestCase {
   
-  var sut: DetailViewController!
+  var sut: DetailsViewController!
   
   override func setUp() {
     let artWork = Artwork(
@@ -31,7 +31,7 @@ class DetailViewControllerTests: XCTestCase {
       description: "description",
       size: "100",
       age: "10")
-    sut = DetailViewController(artwork: artWork)
+    sut = DetailsViewController(artwork: artWork)
     sut.loadViewIfNeeded()
   }
   
@@ -39,36 +39,32 @@ class DetailViewControllerTests: XCTestCase {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
   }
   
-  func test_changeCellHeight_WhenMoreInfoButtonTapped() {
+  func test_featureTextViewIsHidden_WhenMoreInfoButtonTapped() {
     //given
     UIApplication.shared.keyWindow?.rootViewController = sut
     sut.loadViewIfNeeded()
     let expectation = XCTestExpectation(description: "wait for load tableview")
     XCTWaiter().wait(for: [expectation], timeout: 3)
-    guard let dynamicCell = sut.tableView.cellForRow(at: IndexPath(row: 3, section: 0)) as? DynamicCell else {
-      XCTFail("cannot access dynamicCell")
-      return
-    }
-    XCTAssertEqual(dynamicCell.moreInfoLabel.bounds.height, 0)
+    XCTAssertEqual(sut.featureTextView.isHidden, true)
     
     //when
-    dynamicCell.handleExpand(dynamicCell.expandButton)
+    sut.featureView.handleExpand(sut.featureView.expandButton)
     
     //then
     let expectationForAnimation = XCTestExpectation(description: "wait for animation")
     XCTWaiter().wait(for: [expectationForAnimation], timeout: 2)
-    XCTAssertEqual(dynamicCell.moreInfoLabel.bounds.height, 100)
+    XCTAssertEqual(sut.featureTextView.isHidden, false)
   }
   
   func test_presentActivityVC_WhenShareButtonTapped() {
     //given
     UIApplication.shared.keyWindow?.rootViewController = sut
     sut.loadViewIfNeeded()
-    let expectation = XCTestExpectation(description: "wait for load tableview")
+    let expectation = XCTestExpectation(description: "wait for load view")
     XCTWaiter().wait(for: [expectation], timeout: 3)
     
     //when
-    sut.shareButtonTapped()
+    sut.shareButtonTapped(sut.shareButton)
     let expectationForPresent = XCTestExpectation(description: "wait for load activityVC")
     XCTWaiter().wait(for: [expectationForPresent], timeout: 3)
     //then
@@ -80,21 +76,16 @@ class DetailViewControllerTests: XCTestCase {
     //given
     UIApplication.shared.keyWindow?.rootViewController = sut
     sut.loadViewIfNeeded()
-    let expectation = XCTestExpectation(description: "wait for load tableview")
+    let expectation = XCTestExpectation(description: "wait for load view")
     XCTWaiter().wait(for: [expectation], timeout: 3)
     XCTAssertEqual(UIApplication.shared.applicationState.rawValue, 0)
     
     //when
-    guard let topCell = sut.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? TopCell else {
-      XCTFail("cannot access topCell")
-      return
-    }
-    topCell.webButtonTapped(topCell.webButton)
+    sut.webButtonTapped(sut.webButton)
     let expectationForPresent = XCTestExpectation(description: "wait for load web")
     XCTWaiter().wait(for: [expectationForPresent], timeout: 3)
     
     //then
     XCTAssertEqual(UIApplication.shared.applicationState.rawValue, 2)
-    
   }
 }

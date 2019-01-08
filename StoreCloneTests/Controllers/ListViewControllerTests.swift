@@ -36,7 +36,7 @@ class ListViewControllerTests: XCTestCase {
     
     //then
     XCTAssertNotNil(mockNavigationController.pushedViewController)
-    XCTAssertTrue(mockNavigationController.pushedViewController is DetailViewController)
+    XCTAssertTrue(mockNavigationController.pushedViewController is DetailsViewController)
   }
   
 }

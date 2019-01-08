@@ -1,15 +1,13 @@
 //
-//  CategoryCell.swift
+//  CategoryView.swift
 //  StoreClone
 //
-//  Created by junwoo on 15/12/2018.
-//  Copyright © 2018 samchon. All rights reserved.
+//  Created by junwoo on 08/01/2019.
+//  Copyright © 2019 samchon. All rights reserved.
 //
-
 import UIKit
 
-class CategoryCell: UITableViewCell {
-  static let reuseIdentifier = "CategoryCell"
+class CategoryView: UIView {
   
   private lazy var containerGuide: UILayoutGuide = {
     let container = UILayoutGuide()
@@ -35,9 +33,36 @@ class CategoryCell: UITableViewCell {
     return view
   }()
   private var categoryLabels = [UILabel]()
+  private var genres = [String]()
+  
+  init(genres: [String]) {
+    self.genres = genres
+    super.init(frame: CGRect.zero)
+    setupUI()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  func setupUI() {
+    backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+    addLayoutGuide(containerGuide)
+    addSubview(backView)
+    backView.addSubview(titleLabel)
+    backView.addSubview(categoryLabelView)
+    for i in 0..<genres.count {
+      let label = UILabel()
+      label.layer.borderWidth = 0.5
+      label.translatesAutoresizingMaskIntoConstraints = false
+      label.text = "#\(genres[i])"
+      self.categoryLabels.append(label)
+    }
+  }
   
   override func layoutSubviews() {
     super.layoutSubviews()
+    
     containerGuide.topAnchor.constraint(equalTo: backView.topAnchor,
                                         constant: 8).isActive = true
     containerGuide.leadingAnchor.constraint(equalTo: backView.leadingAnchor,
@@ -99,27 +124,5 @@ class CategoryCell: UITableViewCell {
       lastLabel = label
     }
   }
-  
-  func configure(genre: [String]) {
-    selectionStyle = .none
-    backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
-    addLayoutGuide(containerGuide)
-    addSubview(backView)
-    backView.addSubview(titleLabel)
-    backView.addSubview(categoryLabelView)
-    
-    for i in 0..<genre.count {
-      let label = UILabel()
-      label.layer.borderWidth = 0.5
-      label.translatesAutoresizingMaskIntoConstraints = false
-      label.text = "#\(genre[i])"
-      self.categoryLabels.append(label)
-    }
-  }
-  
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    categoryLabels = []
-    categoryLabelView.subviews.forEach { $0.removeFromSuperview() }
-  }
 }
+

@@ -90,7 +90,7 @@ class CellView: UIView {
   }
   
   @objc func handleExpand(_ recognizer: UIButton) {
-    
+    isExpanded = !isExpanded
     UIView.animate(withDuration: 0.5) {
       let angle: CGFloat = self.isExpanded ? .pi : 0.0
       self.expandButton.transform = CGAffineTransform(rotationAngle: angle)

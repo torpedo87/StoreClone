@@ -123,7 +123,9 @@ extension ListViewController: UITableViewDelegate {
                                                   animated: true)
   }
   
-  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView,
+                 willDisplay cell: UITableViewCell,
+                 forRowAt indexPath: IndexPath) {
     guard let cell = cell as? ListCell else { return }
     
     let updateCellClosure: (UIImage?) -> () = { [weak self] iconImage in
@@ -150,7 +152,9 @@ extension ListViewController: UITableViewDelegate {
     }
   }
   
-  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView,
+                 didEndDisplaying cell: UITableViewCell,
+                 forRowAt indexPath: IndexPath) {
     if let loadOperation = loadingOperations[indexPath] {
       loadOperation.cancel()
       loadingOperations.removeValue(forKey: indexPath)
@@ -171,7 +175,8 @@ extension ListViewController: UITableViewDataSourcePrefetching {
     }
   }
   
-  func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+  func tableView(_ tableView: UITableView,
+                 cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
     for indexPath in indexPaths {
       if let loadOperation = loadingOperations[indexPath] {
         loadOperation.cancel()
