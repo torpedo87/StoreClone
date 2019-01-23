@@ -42,10 +42,17 @@ class ListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
+    loadContent()
+  }
+  
+  func loadContent() {
+    let loadingViewController = LoadingViewController()
+    add(loadingViewController)
     
     let url = networkManager.convertKeywordToUrl(keyword: keyword)
     networkManager.loadData(url: url) { [weak self] result in
       guard let self = self else { return }
+      loadingViewController.remove()
       self.handleResult(result: result)
     }
   }

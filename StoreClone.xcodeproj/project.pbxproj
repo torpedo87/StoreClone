@@ -10,6 +10,8 @@
 		480A1A8221E06A29008CBED5 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A1A8121E06A29008CBED5 /* DetailsViewController.swift */; };
 		480A1A8621E07B35008CBED5 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A1A8521E07B35008CBED5 /* CellView.swift */; };
 		4839273521E4D680003EAD05 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4839273421E4D680003EAD05 /* CategoryView.swift */; };
+		4851BC9B21F85ACA00A9AF60 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4851BC9A21F85ACA00A9AF60 /* UIViewController.swift */; };
+		4851BC9D21F85B3A00A9AF60 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4851BC9C21F85B3A00A9AF60 /* LoadingViewController.swift */; };
 		486E316921C377AB0063B75C /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E316821C377AB0063B75C /* UIImageView.swift */; };
 		486E316F21C39EB30063B75C /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486E316E21C39EB30063B75C /* CarouselCell.swift */; };
 		487D443A21C13F45004696A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D443921C13F45004696A0 /* AppDelegate.swift */; };
@@ -43,6 +45,8 @@
 		480A1A8121E06A29008CBED5 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		480A1A8521E07B35008CBED5 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		4839273421E4D680003EAD05 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		4851BC9A21F85ACA00A9AF60 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		4851BC9C21F85B3A00A9AF60 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		486E316821C377AB0063B75C /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		486E316E21C39EB30063B75C /* CarouselCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
 		487D443621C13F45004696A0 /* StoreClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				486E316821C377AB0063B75C /* UIImageView.swift */,
+				4851BC9A21F85ACA00A9AF60 /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 			children = (
 				487D443B21C13F45004696A0 /* ListViewController.swift */,
 				480A1A8121E06A29008CBED5 /* DetailsViewController.swift */,
+				4851BC9C21F85B3A00A9AF60 /* LoadingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -325,6 +331,8 @@
 				486E316F21C39EB30063B75C /* CarouselCell.swift in Sources */,
 				480A1A8621E07B35008CBED5 /* CellView.swift in Sources */,
 				48EF494B21D77EAF0060E539 /* DataStore.swift in Sources */,
+				4851BC9D21F85B3A00A9AF60 /* LoadingViewController.swift in Sources */,
+				4851BC9B21F85ACA00A9AF60 /* UIViewController.swift in Sources */,
 				48CFD25C21C65B52004C2821 /* RatingView.swift in Sources */,
 				487D447B21C28639004696A0 /* ListCell.swift in Sources */,
 				486E316921C377AB0063B75C /* UIImageView.swift in Sources */,
