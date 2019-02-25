@@ -1,7 +1,7 @@
 # StoreClone (toy project)
 - [demo link](https://www.youtube.com/watch?v=4ejtuuail0E)
 
-![Alt text](/Screenshots/allshots.png)
+![Alt text](/Screenshots/allshot.png)
 
 ## purpose
 
