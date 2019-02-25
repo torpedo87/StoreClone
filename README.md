@@ -1,5 +1,7 @@
 # StoreClone (toy project)
 
+![Alt text](/Screenshots/allshots.png)
+
 ## purpose
 
 - 토이프로젝트
